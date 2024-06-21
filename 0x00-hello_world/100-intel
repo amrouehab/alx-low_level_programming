@@ -1,0 +1,2 @@
+#!/bin/bash
+if [ -z "$CFILE" ]; then echo "CFILE variable is not set."; exit 1; fi; gcc -S -masm=intel "$CFILE"; mv "${CFILE%.c}.s" "${CFILE%.c}.s"
