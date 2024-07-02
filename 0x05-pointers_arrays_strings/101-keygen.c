@@ -10,10 +10,10 @@
 int main(void)
 {
     int i;
-    int length = 10; // Length of the password
-    char password[11]; // Fixed length array for password, including null terminator
+    int length = 10; /* Length of the password */
+    char password[11]; /* Fixed length array for password, including null terminator */
 
-    srand(time(0)); // Seed rand() with current time
+    srand(time(0)); /* Seed rand() with current time */
 
     /* Generate random characters in the ASCII printable range */
     for (i = 0; i < length; i++)
@@ -21,7 +21,7 @@ int main(void)
         password[i] = rand() % (126 - 33 + 1) + 33;
     }
     
-    password[length] = '\0'; // Null-terminate the password string
+    password[length] = '\0'; /* Null-terminate the password string */
 
     printf("%s\n", password);
 
