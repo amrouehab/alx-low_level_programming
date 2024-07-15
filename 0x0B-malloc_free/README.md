@@ -1,0 +1,2 @@
+SOl for dybnamic maloc 
+
