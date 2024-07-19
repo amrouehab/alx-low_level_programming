@@ -2,8 +2,6 @@
 
 /**
  * fizz_buzz - Prints numbers from 1 to 100 with FizzBuzz conditions
- *
- * Return: void
  */
 void fizz_buzz(void)
 {
