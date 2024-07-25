@@ -1,0 +1,1 @@
+SOL for static libraries
