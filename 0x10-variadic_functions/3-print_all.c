@@ -1,5 +1,4 @@
 #include "variadic_functions.h"
-#include <stdarg.h>
 #include <stdlib.h>
 
 /**
@@ -8,12 +7,14 @@
  */
 void print_all(const char * const format, ...)
 {
-	int i = 0;
+	int i;
+	char *str;
 	va_list args;
 
 	va_start(args, format);
+	i = 0;
 
-	while (format && format[i])
+	while (format && format[i] != '\0')
 	{
 		if (i > 0)
 		{
@@ -23,19 +24,23 @@ void print_all(const char * const format, ...)
 
 		switch (format[i])
 		{
-			case 'c':
-				print_char(va_arg(args, int));
-				break;
-			case 'i':
-				print_integer(va_arg(args, int));
-				break;
-			case 'f':
-				print_float(va_arg(args, double));
-				break;
-			case 's':
-				print_string(va_arg(args, char *));
-				break;
+		case 'c':
+			print_char(va_arg(args, int));
+			break;
+		case 'i':
+			print_integer(va_arg(args, int));
+			break;
+		case 'f':
+			print_float(va_arg(args, double));
+			break;
+		case 's':
+			str = va_arg(args, char *);
+			if (str == NULL)
+				str = "(nil)";
+			print_string(str);
+			break;
 		}
+
 		i++;
 	}
 
@@ -58,8 +63,7 @@ void print_char(char c)
  */
 void print_integer(int num)
 {
-	int temp;
-	int digits = 0;
+	int temp, digits;
 	char str[12];
 
 	if (num < 0)
@@ -75,6 +79,7 @@ void print_integer(int num)
 	}
 
 	temp = num;
+	digits = 0;
 
 	while (temp > 0)
 	{
@@ -84,14 +89,16 @@ void print_integer(int num)
 
 	str[digits] = '\0';
 
-	while (digits > 0)
+	while (num > 0)
 	{
 		str[--digits] = (num % 10) + '0';
 		num /= 10;
 	}
 
 	for (temp = 0; str[temp] != '\0'; temp++)
+	{
 		_putchar(str[temp]);
+	}
 }
 
 /**
@@ -101,7 +108,9 @@ void print_integer(int num)
 void print_string(char *str)
 {
 	if (str == NULL)
+	{
 		str = "(nil)";
+	}
 
 	while (*str)
 	{
@@ -115,9 +124,13 @@ void print_string(char *str)
  */
 void print_float(double num)
 {
-	int int_part = (int)num;
-	double frac_part = num - int_part;
-	int frac_digits = 6;
+	int int_part;
+	double frac_part;
+	int frac_digits;
+
+	int_part = (int)num;
+	frac_part = num - int_part;
+	frac_digits = 6;
 
 	if (num < 0)
 	{
