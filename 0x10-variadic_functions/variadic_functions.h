@@ -14,6 +14,9 @@ void print_numbers(const char *separator, const unsigned int n, ...);
 void print_strings(const char *separator, const unsigned int n, ...);
 void print_all(const char * const format, ...);
 void print_number(int num);
+void print_char(char c);
+void print_integer(int num);
+void print_string(char *str);
 void print_float(double num);
 
 #endif /* VARIADIC_FUNCTIONS_H */
