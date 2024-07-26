@@ -1,6 +1,9 @@
 #ifndef _CALC_H_
 #define _CALC_H_
 
+#include <stddef.h> /* For NULL and size_t */
+
+
 /**
  * struct op - Struct op
  *
