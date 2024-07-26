@@ -7,6 +7,9 @@
  */
 void print_number(int num)
 {
+	int temp, digits;
+	char str[12]; /* Enough space for all integers (including negatives) */
+
 	if (num < 0)
 	{
 		_putchar('-');
@@ -16,31 +19,28 @@ void print_number(int num)
 	if (num == 0)
 	{
 		_putchar('0');
+		return;
 	}
-	else
+
+	temp = num;
+	digits = 0;
+
+	while (temp > 0)
 	{
-		int temp = num;
-		int digits = 0;
-
-		while (temp > 0)
-		{
-			digits++;
-			temp /= 10;
-		}
-
-		char str[digits];
-
-		str[digits] = '\0';
-
-		while (digits > 0)
-		{
-			str[--digits] = (num % 10) + '0';
-			num /= 10;
-		}
-
-		for (char *p = str; *p != '\0'; p++)
-			_putchar(*p);
+		digits++;
+		temp /= 10;
 	}
+
+	str[digits] = '\0';
+
+	while (digits > 0)
+	{
+		str[--digits] = (num % 10) + '0';
+		num /= 10;
+	}
+
+	for (temp = 0; str[temp] != '\0'; temp++)
+		_putchar(str[temp]);
 }
 
 /**
@@ -51,6 +51,8 @@ void print_number(int num)
 void print_numbers(const char *separator, const unsigned int n, ...)
 {
 	unsigned int i;
+	int num;
+	const char *sep;
 	va_list args;
 
 	va_start(args, n);
@@ -59,14 +61,14 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 	{
 		if (i > 0 && separator != NULL)
 		{
-			for (const char *sep = separator; *sep != '\0'; sep++)
+			sep = separator; /* Move declaration outside the for loop */
+			while (*sep != '\0')
 			{
-				_putchar(*sep);
+				_putchar(*sep++);
 			}
 		}
 
-		int num = va_arg(args, int);
-
+		num = va_arg(args, int);
 		print_number(num);
 	}
 

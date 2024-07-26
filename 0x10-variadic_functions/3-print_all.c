@@ -7,13 +7,13 @@
  */
 void print_all(const char * const format, ...)
 {
-	int i = 0;
+	int i;
 	char *str;
 	va_list args;
 
-
 	va_start(args, format);
 
+	i = 0;
 	while (format && format[i])
 	{
 		if (i > 0)
@@ -54,6 +54,9 @@ void print_all(const char * const format, ...)
  */
 void print_number(int num)
 {
+	int temp, digits;
+	char str[12]; /* Enough space for all int (including negatives) */
+
 	if (num < 0)
 	{
 		_putchar('-');
@@ -66,17 +69,14 @@ void print_number(int num)
 		return;
 	}
 
-	int temp = num;
-	int digits = 0;
-
+	temp = num;
+	digits = 0;
 
 	while (temp > 0)
 	{
 		digits++;
 		temp /= 10;
 	}
-
-	char str[digits];
 
 	str[digits] = '\0';
 
@@ -86,8 +86,8 @@ void print_number(int num)
 		num /= 10;
 	}
 
-	for (char *p = str; *p != '\0'; p++)
-		_putchar(*p);
+	for (temp = 0; str[temp] != '\0'; temp++)
+		_putchar(str[temp]);
 }
 
 /**
@@ -96,26 +96,26 @@ void print_number(int num)
  */
 void print_float(double num)
 {
-	int int_part = (int)num;
-	double frac_part = num - int_part;
+	int int_part, frac_part;
 	int frac_digits = 6;
-
 
 	if (num < 0)
 	{
 		_putchar('-');
-		int_part = -int_part;
-		frac_part = -frac_part;
+		num = -num;
 	}
+
+	int_part = (int)num;
+	frac_part = (int)((num - int_part) * 1000000); /* Limiting to 6 decimal */
 
 	print_number(int_part);
 	_putchar('.');
 
 	while (frac_digits--)
 	{
+		_putchar((frac_part / 100000) % 10 + '0');
+		frac_part %= 100000;
 		frac_part *= 10;
-		_putchar((int)frac_part % 10 + '0');
-		frac_part -= (int)frac_part;
 	}
 }
 
