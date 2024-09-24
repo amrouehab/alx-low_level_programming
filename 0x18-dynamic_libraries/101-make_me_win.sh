@@ -1,3 +1,3 @@
 #!/bin/bash
-export LD_PRELOAD=./gm_hack.so
+export LD_PRELOAD=$PWD/gm_win.so
 
